@@ -1,3 +1,5 @@
+const limit = Math.tan(45 * 1.5 / 180 * Math.PI);    //touch
+const gestureZone = document.body;                   //touch
 const score = document.getElementById("numero-score");
 let player;
 let oneBlockSize = 40; //larghezza di un blocco
@@ -5,28 +7,45 @@ let speedX, speedY;
 let conta = 0;
 let changeColor = 0;
 let timer = 0;
+let pageWidth = window.innerWidth || document.body.clientWidth;    //touch
+let treshold = Math.max(1,Math.floor(0.01 * (pageWidth)));         //touch
+let touchstartX = 0;       //touch
+let touchstartY = 0;       //touch
+let touchendX = 0;         //touch
+let touchendY = 0;         //touch
 
 //mappa dove 1 sono i muri e 0 sono gli spazi vuoti
-var map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-           [1,2,0,0,1,1,1,4,0,0,4,1,0,0,0,0,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,1,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,1,1,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,1],
-           [1,0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,0,1],
-           [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+var map = [
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,2,0,0,1,1,1,4,0,0,4,1,0,0,0,0,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,1,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,1,1,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,1],
+    [1,0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
 function startGame() {
     player = new MakePlayer(oneBlockSize, oneBlockSize, "yellow", 0, 0); //creo il player
     gameArea.start(); //avvio il gioco
     window.addEventListener("keydown", getKey); //evento che prende i tasti
+    gestureZone.addEventListener('touchstart', function(event) { //evento che prende il touch
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+    
+    gestureZone.addEventListener('touchend', function(event) { //evento che prende il touch
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        handleGesture(event);
+    }, false);
 }
 
 let gameArea = {
@@ -132,6 +151,73 @@ function getKey(event){
     // console.log(map);
     //console.log(playerPosXMap, playerPosYMap);
 }
+
+function handleGesture(e) {
+    let x = touchendX - touchstartX;
+    let y = touchendY - touchstartY;
+    let xy = Math.abs(x / y);
+    let yx = Math.abs(y / x);
+    if (Math.abs(x) > treshold || Math.abs(y) > treshold) {
+        if (yx <= limit) {
+            if (x < 0) {
+                for(let i = (map[playerPosYMap].length) - 1; i > playerPosXMap; i--){
+                    if(map[playerPosYMap][playerPosXMap - 1] == 0){
+                        coinCount();
+                    }
+                    if((map[playerPosYMap][playerPosXMap - 1] != 1) && (map[playerPosYMap][playerPosXMap - 1] != 4) && (map[playerPosYMap][playerPosXMap - 1] != 5)){
+                        map[playerPosYMap][playerPosXMap] = 3;
+                        playerPosXMap--;
+                        map[playerPosYMap][playerPosXMap] = 2;
+                        player.x = (playerPosXMap * oneBlockSize) + player.width / 2;
+                    }
+                    
+                }
+            } else {
+                for(let i = playerPosXMap; i < map[playerPosYMap].length; i++){
+                    if(map[playerPosYMap][playerPosXMap + 1] == 0){
+                        coinCount();
+                    }
+                    if((map[playerPosYMap][playerPosXMap + 1] != 1) && (map[playerPosYMap][playerPosXMap + 1] != 4) && (map[playerPosYMap][playerPosXMap + 1] != 5)){ //verifica che non ci siano muri
+                        map[playerPosYMap][playerPosXMap] = 3; //cambia la posizione nella mappa
+                        playerPosXMap++;
+                        map[playerPosYMap][playerPosXMap] = 2;
+                        player.x = ((playerPosXMap + 1) * oneBlockSize) - player.width / 2; //lo visualizza a schermo
+                    }
+                    
+                }
+            }
+        }
+        if (xy <= limit) {
+            if (y < 0) {
+                for(let i = map.length - 1; i > playerPosYMap; i--){
+                    if(map[playerPosYMap - 1][playerPosXMap] == 0){
+                        coinCount();
+                    }
+                    if((map[playerPosYMap - 1][playerPosXMap] != 1) && (map[playerPosYMap - 1][playerPosXMap] != 4) && (map[playerPosYMap - 1][playerPosXMap] != 5)){
+                        map[playerPosYMap][playerPosXMap] = 3;
+                        playerPosYMap--;
+                        map[playerPosYMap][playerPosXMap] = 2;
+                        player.y = (playerPosYMap * oneBlockSize) + player.height / 2;
+                    }
+                    
+                }
+            } else {
+                for(let i = playerPosYMap; i < map.length; i++){
+            if(map[playerPosYMap + 1][playerPosXMap] == 0){
+                coinCount();
+            }
+            if((map[playerPosYMap + 1][playerPosXMap] != 1) && (map[playerPosYMap + 1][playerPosXMap] != 4) && (map[playerPosYMap + 1][playerPosXMap] != 5)){
+                map[playerPosYMap][playerPosXMap] = 3;
+                playerPosYMap++;
+                map[playerPosYMap][playerPosXMap] = 2;
+                player.y = ((playerPosYMap + 1) * oneBlockSize) - player.height / 2;
+            }
+        }
+            }
+        }
+    }
+}
+
 
 function createRect(x, y, width, height, color){
     let ctxRect = gameArea.context; //prelevo il contesto 2d

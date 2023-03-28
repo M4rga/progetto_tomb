@@ -4,7 +4,10 @@
     overflow: hidden;
 }
 
+
 body{
+    transform: scale(0.75);
+    transform-origin: top center;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,3 +70,18 @@ img{
     line-height: 30px;
 } 
 
+
+
+@media only screen and (min-width: 2100px) {
+    body{
+        transform: scale(1.0);
+        transform-origin: top center;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    body{
+        transform: scale(0.6);
+        transform-origin: top center;
+    }
+}
