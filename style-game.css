@@ -58,30 +58,9 @@ img{
 
 }
 
-#score{
-    transform-style: preserve-3d;
-    font-size: 30px;
-    line-height: 30px;
-}
-
-#title{
-    transform-style: preserve-3d;
-    font-size: 30px;
-    line-height: 30px;
-} 
-
-
-
 @media only screen and (min-width: 2100px) {
     body{
         transform: scale(1.0);
-        transform-origin: top center;
-    }
-}
-
-@media only screen and (max-width: 1000px) {
-    body{
-        transform: scale(0.6);
         transform-origin: top center;
     }
 }

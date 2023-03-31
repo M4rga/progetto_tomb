@@ -5,18 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="style.css">
-    <title>Tomb Of The Mask ALPHA</title>
-    <link rel="icon" href="Images/icon.png">
+    <link rel="stylesheet" href="style-game.css">
+    <title>Tomb Of The Mask 0.8</title>
+    <link rel="icon" href="Images/Icone/icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
     <body onload="startGame()">
        
         <div class="container">
             <div class="titolo">
-                <img src="Images/Title-icon.png" alt="Tomb of the mask Player">
-                <h1>Tomb Of the Mask</h1>
-                <img src="Images/Title-icon.png" alt="Tomb of the mask Player">
+                <h1>STAGE <span id="stage-level"></span></h1>
             </div>
         
             <div id="map-container">
@@ -24,16 +22,10 @@
             </div>
 
             <div id="count-coin">
-                <div id="title">
-                  <p>MONETE RACCOLTE:</p>
-                </div>
-                <div id="score">
-                    <p id="numero-score">0</p>
-                </div>
+                  <p>STELLE RACCOLTE: <span id="numero-score">0</span> SU 3</p>
               </div>
         </div>
 
-        <script src="script.js"></script>
-
+        <script src="script-game.js"></script>
     </body>
 </html>
