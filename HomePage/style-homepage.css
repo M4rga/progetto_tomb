@@ -1,0 +1,153 @@
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background-image: url(../Images/Background/background_tomb_mask.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position-y: -2vh;
+    background-color: black;
+    
+}
+
+#title{
+    height: 100vh;
+    width: 70vw;
+    margin-top: -10vh;
+    /*-webkit-animation: opacity 6s ease-out;
+    -moz-animation: opacity 6s ease-out;
+    -o-animation: opacity 6s ease-out;*/
+    animation: opacity 6s ease-out;
+}
+
+#immagini{
+    display: flex;
+    flex-direction: column;
+}
+
+#petp{
+    height: 10vh;
+    width: 15vw;
+    margin-left: 27vw;
+    /*-webkit-animation: opacity 6s ease-out;
+    -moz-animation: opacity 6s ease-out;
+    -o-animation: opacity 6s ease-out;*/
+    animation: opacity 6s ease-out;
+}
+#levels{
+    display: none;
+    flex-flow: row wrap;
+    gap: 100%;
+}
+#scritta_livelli{
+    justify-content: center;
+    margin: auto;
+}
+
+#bottoni_livelli{
+    display: none;
+    margin: auto;
+    /*-webkit-animation: opacity 6s ease-out;
+    -moz-animation: opacity 6s ease-out;
+    -o-animation: opacity 6s ease-out;*/
+    animation: opacity_livelli 1s ease-out;
+
+}
+
+button {
+    margin: 20px;
+    font-size: 70px;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 20px;
+    width: 150px;
+    height: 150px;
+    background-color: #fff700;
+}
+
+
+/*@-webkit-keyframes opacity {
+
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: block;
+        opacity: 0;
+    }
+    100%{
+        display: block;
+        opacity: 1;
+    }
+}
+@-moz-keyframes opacity {
+
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: block;
+        opacity: 0;
+    }
+    100%{
+        display: block;
+        opacity: 1;
+    }
+}
+@-o-keyframes opacity {
+
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: block;
+        opacity: 0;
+    }
+    100%{
+        display: block;
+        opacity: 1;
+    }
+}*/
+@keyframes opacity {
+
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: block;
+        opacity: 0;
+    }
+    100%{
+        display: block;
+        opacity: 1;
+    }
+}
+@keyframes opacity_livelli {
+
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: block;
+        opacity: 0;
+    }
+    100%{
+        display: block;
+        opacity: 1;
+    }
+}
+
