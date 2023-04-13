@@ -128,6 +128,7 @@ function startGame() {
     getPlayerPosition();
     player = new MakePlayer(oneBlockSize, oneBlockSize, playerPosXMap, playerPosYMap); //creo il player
     gameArea.start() //avvio il gioco
+    mapResolutionManagement();
     window.addEventListener("keydown", getKey); //evento che prende i tasti
     gestureZone.addEventListener('touchstart', function(event) { //evento che prende il touch
         touchstartX = event.changedTouches[0].screenX;
@@ -690,4 +691,25 @@ function touch() {
     premi.addEventListener('click', function() {premi.remove(); bgPremi.remove()})
     document.body.insertBefore(premi, document.body.firstChild);
     document.body.insertBefore(bgPremi, document.body.firstChild);
+}
+
+function mapResolutionManagement(){
+    let miniMobileResolution = window.matchMedia("(max-width: 320px)"); 
+    let averageMobileResolution = window.matchMedia("(min-width: 321px) and (max-width: 768px)");
+    let tabeltResolution = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+
+    if((stageLevel == 2) || (stageLevel == 3)){
+        if(miniMobileResolution.matches){
+            document.getElementById('map').style.height = "50vh";
+            document.getElementById('map').style.width = "100%";
+        }
+        else if(averageMobileResolution.matches){
+            document.getElementById('map').style.height = "60vh";
+            document.getElementById('map').style.width = "100%";
+        }
+        else if(tabeltResolution.matches){
+            document.getElementById('map').style.height = "70vh";
+            document.getElementById('map').style.width = "100%";
+        }
+    }
 }

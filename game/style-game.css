@@ -232,7 +232,7 @@ img{
 }
 
 /*tablet*/
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px){
 
     #win-container, #lose-container{
         font-size: x-large;
@@ -252,7 +252,7 @@ img{
 }
 
 /*laptop*/
-@media (min-width: 1024px) and (max-width: 1382px) {
+@media (min-width: 1024px) and (max-width: 1382px){
     #arrow{
         display: none;
         position: absolute;
@@ -268,8 +268,8 @@ img{
     }   
 
     #count-star{
-        margin-top: -7%;
-        font-size: 20px;
+        margin-top: -3%;
+        font-size: xx-large;
     }
 
     #win-container, #lose-container{
